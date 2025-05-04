@@ -1,0 +1,46 @@
+.icon-container {
+  background-color: #FF69B4; /* 粉紅桃紅色 */
+  border-radius: 50%; /* 圓形 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-right: 8px;
+}
+
+.icon {
+  font-size: 24px;
+  color: white;
+}
+
+.ant-menu-item-selected {
+  background-color: #ADD8E6 !important; /* 淺藍色 */
+  color: #333 !important; /* 深灰色文字 */
+}
+
+.ant-menu-item-selected .ant-menu-title-content {
+  color: #333 !important; /* 確保深灰色文字 */
+}
+
+.ant-menu-item:hover {
+  background-color: #B0E0E6 !important; /* 淺藍色 */
+}
+
+.ant-menu-item {
+  color: #FFFFFF !important; /* 白色文字 */
+}
+
+.demo-logo-vertical {
+  background-color: #1A1A1D; /* 深灰色背景 */
+}
+
+/* 
+.ant-layout-sider {
+  background-color: #06060b !important; 
+}
+
+.ant-layout-header {
+  background-color: #1C1C2E !important;
+}  
+*/
