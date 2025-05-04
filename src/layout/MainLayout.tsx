@@ -136,7 +136,7 @@ const MainLayout: React.FC = () => {
 
           {/* Chat Panel */}
           {chatVisible && (
-            <div style={{ margin: '24px 16px 24px 0', width: '300px', flexShrink: 0 }}>
+            <div style={{ margin: '24px 16px 24px 0', width: '500px', flexShrink: 0 }}>
               <Card
                 title={
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
