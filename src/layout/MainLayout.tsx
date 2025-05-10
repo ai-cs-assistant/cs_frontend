@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Layout, Menu, Button ,Card } from 'antd';
+import ChatPanel from '../components/ChatPanel';
+
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -19,28 +21,9 @@ import {
   CloseOutlined
 } from '@ant-design/icons';
 import './MainLayout.css';
-import './Chat.css';
+
 
 const { Header, Sider, Content } = Layout;
-
-const messages = [
-    {
-      role: "agent",
-      message: "我能推薦什麼商品給這位買了咖啡機的客戶？"
-    },
-    {
-      role: "assistant",
-      message: "這位客戶購買了「濃縮咖啡機」，根據常見搭配，推薦以下加購商品：\n\n- 不銹鋼奶泡杯（95 元）\n- 義式濾網組（199 元）\n- 咖啡豆 1kg（會員價 299 元）\n\n是否要我幫您生成一段推銷訊息？"
-    },
-    {
-      role: "agent",
-      message: "好，幫我寫一段自然一點的話。"
-    },
-    {
-      role: "assistant",
-      message: "您可以回覆客戶：\n\n「為了讓您的咖啡體驗更完整，我們推薦幾項加購好物：奶泡杯、濾網組，還有優惠的咖啡豆組合，歡迎參考哦 ☕」\n\n要幫您一鍵送出嗎？"
-    }
-  ];
 
 
 
@@ -48,7 +31,7 @@ const messages = [
 const MainLayout: React.FC = () => {
   // 設定側邊欄的折疊狀態
   const [collapsed, setCollapsed] = useState(false);
-  const [chatVisible, setChatVisible] = useState(true);
+  const [chatVisible, setChatVisible] = useState(false);
 
   // 返回 Layout 結構
   return (
@@ -107,6 +90,7 @@ const MainLayout: React.FC = () => {
             }}
           />
           <div style={{ display: 'flex', alignItems: 'center' }}>
+ 
             <PhoneOutlined style={{ fontSize: '20px', color: '#fff', marginRight: '16px' }} />
             <MessageOutlined
               style={{ fontSize: '20px', color: '#fff', marginRight: '16px', cursor: 'pointer' }}
@@ -118,6 +102,7 @@ const MainLayout: React.FC = () => {
             <PhoneOutlined style={{ fontSize: '20px', color: '#fff', marginRight: '16px' }} />
             <FileTextOutlined style={{ fontSize: '20px', color: '#fff', marginRight: '16px' }} />
             <UserOutlined style={{ fontSize: '20px', color: '#fff', marginRight: '16px' }} />
+            <Button className="glassy-button" onClick={() => setChatVisible(true)}>AI 助手</Button>
           </div>
         </Header>
         
@@ -135,80 +120,7 @@ const MainLayout: React.FC = () => {
           </Content>
 
           {/* Chat Panel */}
-          {chatVisible && (
-            <div style={{ margin: '24px 16px 24px 0', width: '500px', flexShrink: 0 }}>
-              <Card
-                title={
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span>AI 聊天室</span>
-                    <CloseOutlined style={{ cursor: 'pointer' }} onClick={() => setChatVisible(false)} />
-                    </div>
-                }
-                style={{
-                    height: '100%',
-                    borderRadius: 8,
-                    display: 'flex',
-                    flexDirection: 'column',
-                }}
-                bodyStyle={{ flex: 1, display: 'flex', flexDirection: 'column', padding: 0 }}
-                >
-                {/* 聊天訊息區（上方） */}
-
-                <div style={{ flex: 1, padding: '16px', overflowY: 'auto' }}>
-                    {messages.map((msg, index) => (
-                        <div
-                        key={index}
-                        className={`chat-message ${msg.role === 'assistant' ? 'left' : 'right'}`}
-                        >
-                        <div className={`bubble ${msg.role === 'assistant' ? 'ai' : 'user'}`}>
-                            {msg.role === 'assistant' ? 'AI：' : ''}{msg.message.split('\n').map((line, i) => (
-                            <div key={i}>{line}</div>
-                            ))}
-                        </div>
-                        </div>
-                    ))}
-                </div>
-
-
-                {/* <div style={{ flex: 1, padding: '16px', overflowY: 'auto' }}>
-                    <div className="chat-message left">
-                        <div className="bubble ai">AI：您好，有什麼可以幫助您的？</div>
-                    </div>
-                    <div className="chat-message right">
-                        <div className="bubble user">我想查詢訂單狀態</div>
-                    </div>
-                    <div className="chat-message left">
-                        <div className="bubble ai">AI：您好，有什麼可以幫助您的？</div>
-                    </div>
-                    <div className="chat-message right">
-                        <div className="bubble user">我想查詢訂單狀態</div>
-                    </div>
-                </div> */}
-
-
-                {/* 輸入框區（下方） */}
-                <div style={{
-                    padding: '12px 16px',
-                    borderTop: '1px solid #f0f0f0',
-                    display: 'flex',
-                    alignItems: 'center',
-                }}>
-                    <input
-                    type="text"
-                    placeholder="請輸入訊息..."
-                    style={{
-                        flex: 1,
-                        padding: '8px 12px',
-                        border: '1px solid #d9d9d9',
-                        borderRadius: 4,
-                        marginRight: 8,
-                    }}
-                    />
-                    <Button type="primary">送出</Button>
-                </div>
-                </Card>
-            </div>
-          )}
+          {chatVisible && <ChatPanel onClose={() => setChatVisible(false)} />}
         </div>
       </Layout>
     </Layout>
