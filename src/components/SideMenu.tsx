@@ -7,16 +7,19 @@ import {
   TagsOutlined,
   CarOutlined,
   RobotOutlined,
+  ShoppingOutlined,
+  FileTextOutlined,
 } from '@ant-design/icons';
 import './SideMenu.css';
 
 const { Sider } = Layout;
 
-interface SideMenuProps {
+export interface SideMenuProps {
   collapsed: boolean;
+  onMenuClick: (key: string) => void;
 }
 
-const SideMenu: React.FC<SideMenuProps> = ({ collapsed }) => {
+const SideMenu: React.FC<SideMenuProps> = ({ collapsed, onMenuClick }) => {
   return (
     <Sider trigger={null} collapsible collapsed={collapsed} theme="dark">
       {/* Logo */}
@@ -33,18 +36,54 @@ const SideMenu: React.FC<SideMenuProps> = ({ collapsed }) => {
         theme="dark"
         mode="inline"
         defaultSelectedKeys={['menu_prod']}
-      >
-        <Menu.Item key="menu_prod" icon={<TagsOutlined />}>商品資訊查詢</Menu.Item>
-        <Menu.Item key="menu_order" icon={<UserOutlined />}>客戶訂單查詢</Menu.Item>
-        <Menu.SubMenu key="menu_consult" icon={<VideoCameraOutlined />} title="商談管理">
-          <Menu.Item key="menu_consult_query">查詢商談</Menu.Item>
-          <Menu.Item key="menu_consult_create">建立商談</Menu.Item>
-          <Menu.Item key="menu_consult_process">商談處理</Menu.Item>
-        </Menu.SubMenu>
-        <Menu.Item key="menu_scm" icon={<ShopOutlined />}>供應商查詢</Menu.Item>
-        <Menu.Item key="menu_dely" icon={<CarOutlined />}>物流進度查詢</Menu.Item>
-        <Menu.Item key="menu_ai" icon={<RobotOutlined />}>AI Assistant</Menu.Item>
-      </Menu>
+        items={[
+          {
+            key: 'menu_prod',
+            icon: <ShoppingOutlined />,
+            label: '商品查詢',
+          },
+          {
+            key: 'menu_order',
+            icon: <FileTextOutlined />,
+            label: '客戶訂單查詢',
+          },
+          {
+            key: 'menu_scm',
+            icon: <ShopOutlined />,
+            label: '供應商查詢',
+          },
+          {
+            key: 'menu_dely',
+            icon: <CarOutlined />,
+            label: '物流進度查詢',
+          },
+          {
+            key: 'menu_consult',
+            icon: <VideoCameraOutlined />,
+            label: '商談管理',
+            children: [
+              {
+                key: 'menu_consult_query',
+                label: '查詢商談',
+              },
+              {
+                key: 'menu_consult_create',
+                label: '建立商談',
+              },
+              {
+                key: 'menu_consult_process',
+                label: '商談處理',
+              },
+            ],
+          },
+          {
+            key: 'menu_ai',
+            icon: <RobotOutlined />,
+            label: 'AI Assistant',
+          },
+        ]}
+        onClick={({ key }) => onMenuClick(key)}
+      />
     </Sider>
   );
 };

@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { Layout, Button, Card } from 'antd';
 import ChatPanel from '../components/ChatPanel';
 import SideMenu from '../components/SideMenu';
+import ProductSearch from '../pages/ProductSearch';
+import OrderSearch from '../pages/OrderSearch';
+import SupplierSearch from '../pages/SupplierSearch';
+import DeliverySearch from '../pages/DeliverySearch';
 
 import {
   MenuFoldOutlined,
@@ -18,16 +22,54 @@ import './MainLayout.css';
 
 const { Header, Content } = Layout;
 
+// 定義內容類型
+type ContentType = 'menu_prod' | 'menu_order' | 'menu_consult' | 'menu_consult_query' | 'menu_consult_create' | 'menu_consult_process' | 'menu_scm' | 'menu_dely' | 'menu_ai' | 'default';
+
 const MainLayout: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [chatVisible, setChatVisible] = useState(false);
+  const [currentContent, setCurrentContent] = useState<ContentType>('menu_prod');
+
+  // 渲染當前內容
+  const renderContent = () => {
+    switch (currentContent) {
+      case 'menu_prod':
+        return <ProductSearch />;
+      case 'menu_order':
+        return <OrderSearch />;
+      case 'menu_scm':
+        return <SupplierSearch />;
+      case 'menu_dely':
+        return <DeliverySearch />;
+      case 'menu_consult':
+      case 'menu_consult_query':
+      case 'menu_consult_create':
+      case 'menu_consult_process':
+        return <div>商談管理功能開發中...</div>;
+      case 'menu_ai':
+        return <div>AI Assistant 功能開發中...</div>;
+      default:
+        return <ProductSearch />;
+    }
+  };
+
+  // 處理選單項目點擊
+  const handleMenuClick = (key: string) => {
+    setCurrentContent(key as ContentType);
+    if (key === 'menu_ai') {
+      setChatVisible(true);
+    }
+  };
 
   return (
     <Layout style={{ minHeight: '100vh', display: 'flex', flexDirection: 'row' }}>
       {/* Side Menu Component */}
-      <SideMenu collapsed={collapsed} />
+      <SideMenu 
+        collapsed={collapsed} 
+        onMenuClick={handleMenuClick}
+      />
 
-      <Layout>
+      <Layout style={{ flex: 1, overflow: 'hidden' }}>
         {/* Header */}
         <Header
           style={{
@@ -66,15 +108,19 @@ const MainLayout: React.FC = () => {
         </Header>
         
         {/* Main Content + Chat */}
-        <div style={{ display: 'flex', flex: 1 , height: 'calc(100vh - 64px)' }}>
+        <div style={{ display: 'flex', flex: 1, height: 'calc(100vh - 64px)', overflow: 'hidden' }}>
           {/* Main Content */}
-          <Content style={{ margin: '24px 16px', flex: 1 }}>
+          <Content style={{ 
+            margin: '24px 16px', 
+            flex: 1,
+            minWidth: 0, // 防止內容溢出
+            overflow: 'auto' // 允許內容區域滾動
+          }}>
             <Card
-              title="主內容區塊"
               style={{ height: '100%', borderRadius: 8 }}
               bodyStyle={{ height: '100%', overflow: 'auto' }}
             >
-              這裡是主內容
+              {renderContent()}
             </Card>
           </Content>
 
