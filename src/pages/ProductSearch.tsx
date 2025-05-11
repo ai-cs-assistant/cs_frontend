@@ -11,18 +11,146 @@ interface Product {
 }
 
 const mockProducts: Product[] = [
-  { id: 1, name: '高級筆記型電腦', price: 35000, category: '電子產品', stock: 50 },
-  { id: 2, name: '無線藍牙耳機', price: 2500, category: '電子產品', stock: 100 },
-  { id: 3, name: '智慧型手機', price: 20000, category: '電子產品', stock: 30 },
-  { id: 4, name: '機械鍵盤', price: 3500, category: '電腦周邊', stock: 80 },
-  { id: 5, name: '電競滑鼠', price: 1800, category: '電腦周邊', stock: 120 },
+  {
+    id: 'P001',
+    name: 'Delonghi ECAM 370.95.T 全自動義式咖啡機',
+    category: '咖啡機',
+    price: 45800,
+    stock: 15,
+    supplier: '德隆電器',
+    status: 'active',
+    description: '全自動義式咖啡機，具備研磨、萃取、奶泡一體化功能，可製作多種咖啡飲品。',
+    specifications: {
+      power: '1450W',
+      capacity: '1.8L',
+      dimensions: '238 x 430 x 355mm',
+      weight: '9.5kg'
+    }
+  },
+  {
+    id: 'P002',
+    name: 'Breville BES920XL 半自動義式咖啡機',
+    category: '咖啡機',
+    price: 32800,
+    stock: 8,
+    supplier: '百靈家電',
+    status: 'active',
+    description: '專業級半自動義式咖啡機，具備PID溫度控制系統，可精準控制萃取溫度。',
+    specifications: {
+      power: '1600W',
+      capacity: '2L',
+      dimensions: '310 x 400 x 410mm',
+      weight: '18kg'
+    }
+  },
+  /*
+  {
+    id: 'P003',
+    name: 'Hario V60 陶瓷濾杯',
+    category: '手沖器具',
+    price: 680,
+    stock: 50,
+    supplier: '哈里歐咖啡',
+    status: 'active',
+    description: '日本知名品牌手沖濾杯，採用優質陶瓷材質，可完美展現咖啡風味。',
+    specifications: {
+      material: '陶瓷',
+      size: '02號',
+      color: '白色',
+      weight: '300g'
+    }
+  },
+  */
+  {
+    id: 'P004',
+    name: 'Motta 專業奶泡杯',
+    category: '配件',
+    price: 1200,
+    stock: 30,
+    supplier: '摩塔咖啡',
+    status: 'active',
+    description: '義大利進口專業奶泡杯，不鏽鋼材質，可製作完美奶泡。',
+    specifications: {
+      material: '不鏽鋼',
+      capacity: '350ml',
+      diameter: '8cm',
+      height: '12cm'
+    }
+  },
+  {
+    id: 'P005',
+    name: '衣索比亞 耶加雪菲 日曬 咖啡豆',
+    category: '咖啡豆',
+    price: 580,
+    stock: 100,
+    supplier: '非洲咖啡',
+    status: 'active',
+    description: '衣索比亞耶加雪菲產區日曬處理咖啡豆，具有柑橘、花香等風味。',
+    specifications: {
+      origin: '衣索比亞',
+      process: '日曬',
+      roast: '中淺焙',
+      weight: '250g'
+    }
+  },
+  {
+    id: 'P006',
+    name: 'Baratza Encore 咖啡磨豆機',
+    category: '磨豆機',
+    price: 6800,
+    stock: 12,
+    supplier: '百瑞茲',
+    status: 'active',
+    description: '專業級錐形刀盤磨豆機，40段研磨度可調，適合手沖和義式咖啡。',
+    specifications: {
+      power: '110W',
+      capacity: '250g',
+      dimensions: '165 x 165 x 350mm',
+      weight: '4.5kg'
+    }
+  },
+  /*
+  {
+    id: 'P007',
+    name: 'Kalita Wave 185 不鏽鋼濾杯',
+    category: '手沖器具',
+    price: 850,
+    stock: 25,
+    supplier: '哈里歐咖啡',
+    status: 'active',
+    description: '日本知名品牌波浪型濾杯，三孔設計，可穩定萃取咖啡。',
+    specifications: {
+      material: '不鏽鋼',
+      size: '185',
+      color: '銀色',
+      weight: '200g'
+    }
+  },
+  {
+    id: 'P008',
+    name: '哥倫比亞 聖塔羅莎 水洗 咖啡豆',
+    category: '咖啡豆',
+    price: 520,
+    stock: 80,
+    supplier: '南美咖啡',
+    status: 'active',
+    description: '哥倫比亞聖塔羅莎產區水洗處理咖啡豆，具有堅果、巧克力等風味。',
+    specifications: {
+      origin: '哥倫比亞',
+      process: '水洗',
+      roast: '中焙',
+      weight: '250g'
+    }
+  } 
+    */
 ];
 
 const categories = [
-  { value: '電子產品', label: '電子產品' },
-  { value: '電腦周邊', label: '電腦周邊' },
-  { value: '辦公用品', label: '辦公用品' },
-  { value: '生活用品', label: '生活用品' },
+  { value: '咖啡機', label: '咖啡機' },
+  { value: '手沖器具', label: '手沖器具' },
+  { value: '磨豆機', label: '磨豆機' },
+  { value: '咖啡豆', label: '咖啡豆' },
+  { value: '配件', label: '配件' },
 ];
 
 const stockStatus = [
@@ -116,7 +244,7 @@ const ProductSearch: React.FC = () => {
                       min={0}
                     />
                   </Form.Item>
-                  <span style={{ width: '10%', textAlign: 'center' }}>至</span>
+                  <span style={{ width: '10%', textAlign: 'center', padding: '0 1px 0 6px' }}>至</span>
                   <Form.Item name={['priceRange', 'max']} noStyle>
                     <InputNumber
                       style={{ width: '45%' }}

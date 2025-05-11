@@ -137,29 +137,29 @@ const ChatPanel = ({ onClose }: { onClose: () => void }) => {
         </div>
 
         {/* 輸入區 */}
-        <div
-          style={{
-            padding: '12px 16px',
-            borderTop: '1px solid #f0f0f0',
-            display: 'flex',
-            alignItems: 'center',
-          }}
-        >
-          <input
-            type="text"
+        <div className="chat-input-container">
+          <textarea
             placeholder="請輸入訊息..."
+            rows={3}
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
-            style={{
-              flex: 1,
-              padding: '8px 12px',
-              border: '1px solid #d9d9d9',
-              borderRadius: 4,
-              marginRight: 8,
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+              }
             }}
+            className="chat-textarea"
           />
-          <Button type="primary" onClick={sendMessage}>送出</Button>
+          <div className="chat-button-container">
+            <Button 
+              type="default"
+              onClick={sendMessage}
+              className="chat-send-button"
+            >
+              送出訊息
+            </Button>
+          </div>
         </div>
       </Card>
     </div>

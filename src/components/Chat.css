@@ -73,3 +73,57 @@
     border-left: 16px solid #FFB5A7;
     /* border-right: 8px solid #95ec69;  */ 
   }
+
+/* 聊天輸入區域容器 */
+.chat-input-container {
+  padding: 16px;
+  border-top: 1px solid #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-color: #fafafa;
+}
+
+/* 聊天輸入框 */
+.chat-textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid rgb(81, 221, 225);
+  border-radius: 8px;
+  resize: none;
+  font-family: inherit;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+}
+
+.chat-textarea:focus {
+  outline: none;
+  border-color: rgb(81, 221, 225);
+  box-shadow: 0 0 0 2px rgba(81, 221, 225, 0.2);
+}
+
+/* 聊天按鈕容器 */
+.chat-button-container {
+  display: flex;
+  justify-content: center;
+}
+
+/* 聊天送出按鈕 */
+.chat-send-button {
+  border-radius: 20px !important;
+  padding: 0 24px !important;
+  height: 36px !important;
+  font-size: 15px !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+  transition: all 0.3s ease !important;
+  background-color: #48afc1 !important;
+  border-color: #48afc1 !important;
+  color: #fefefe !important;
+}
+
+.chat-send-button:hover {
+  background-color: #5eeae1 !important;
+  border-color: #5eeae1 !important;
+  color: #05161d !important;
+}
