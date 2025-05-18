@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { Layout, Button, Card } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Layout, Button, Card, message } from 'antd';
 import ChatPanel from '../components/ChatPanel';
 import SideMenu from '../components/SideMenu';
 import ProductSearch from '../pages/ProductSearch';
 import OrderSearch from '../pages/OrderSearch';
 import SupplierSearch from '../pages/SupplierSearch';
 import DeliverySearch from '../pages/DeliverySearch';
+import authService from '../services/authService';
 
 import {
   MenuFoldOutlined,
@@ -29,6 +30,17 @@ const MainLayout: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [chatVisible, setChatVisible] = useState(false);
   const [currentContent, setCurrentContent] = useState<ContentType>('menu_prod');
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    const user = authService.getCurrentUser();
+    if (user?.token) {
+      setToken(user.token);
+    } else {
+      message.error('請先登入系統');
+      window.location.href = '/login';
+    }
+  }, []);
 
   // 渲染當前內容
   const renderContent = () => {
@@ -125,7 +137,12 @@ const MainLayout: React.FC = () => {
           </Content>
 
           {/* Chat Panel */}
-          {chatVisible && <ChatPanel onClose={() => setChatVisible(false)} />}
+          {chatVisible && token && (
+            <ChatPanel 
+              onClose={() => setChatVisible(false)} 
+              token={token}
+            />
+          )}
         </div>
       </Layout>
     </Layout>

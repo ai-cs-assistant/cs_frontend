@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Button, Card } from 'antd';
+import { Button, Card, message } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import './Chat.css';
 
@@ -24,7 +24,7 @@ const demo_messages = [
   ];
 
 
-const ChatPanel = ({ onClose }: { onClose: () => void }) => {
+const ChatPanel = ({ onClose, token }: { onClose: () => void; token: string }) => {
   const [messages, setMessages] = useState<{ role: string; message: string }[]>(demo_messages);
   const [input, setInput] = useState('');
   const wsRef = useRef<WebSocket | null>(null);
@@ -37,6 +37,13 @@ const ChatPanel = ({ onClose }: { onClose: () => void }) => {
     const connectWebSocket = () => {
       if (!mountedRef.current) return;
 
+      // 檢查 token 是否存在
+      if (!token) {
+        console.error('Token is missing');
+        message.error('認證失敗：缺少 token');
+        return;
+      }
+
       // 如果已經有連接，先關閉
       if (wsRef.current) {
         wsRef.current.close();
@@ -44,11 +51,12 @@ const ChatPanel = ({ onClose }: { onClose: () => void }) => {
       }
 
       console.log('ChatPanel useEffect... 準備連線 websocket');
-      const socket = new WebSocket('ws://localhost:8080/ws/chat');
+      const socket = new WebSocket(`ws://localhost:8080/ws/chat?token=${token}`);
       wsRef.current = socket;
 
       socket.onopen = () => {
         console.log('WebSocket connected');
+        message.success('已成功連線到 AI 助理');
         // 連接成功後清除重連計時器
         if (reconnectTimeoutRef.current) {
           clearTimeout(reconnectTimeoutRef.current);
@@ -65,11 +73,13 @@ const ChatPanel = ({ onClose }: { onClose: () => void }) => {
       socket.onerror = (e) => {
         if (!mountedRef.current) return;
         console.error('WebSocket error:', e);
+        message.error('連線失敗，請稍後再試');
       };
 
       socket.onclose = () => {
         if (!mountedRef.current) return;
         console.log('WebSocket closed');
+        message.warning('連線已中斷，正在嘗試重新連線...');
         
         // 如果組件仍然掛載，嘗試重連
         if (mountedRef.current && !reconnectTimeoutRef.current) {

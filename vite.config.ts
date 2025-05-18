@@ -7,5 +7,12 @@ export default defineConfig({
   server: {
     port: 3000, // 5173
     open: true, 
+    proxy: {
+      '/auth': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        secure: false
+      }
+    }
   },
 })
