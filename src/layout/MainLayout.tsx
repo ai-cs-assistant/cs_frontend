@@ -18,6 +18,7 @@ import {
   SettingOutlined,
   FileTextOutlined,
   UserOutlined,
+  LogoutOutlined,
 } from '@ant-design/icons';
 import './MainLayout.css';
 
@@ -73,6 +74,12 @@ const MainLayout: React.FC = () => {
     }
   };
 
+  const handleLogout = () => {
+    authService.logout();
+    message.success('已成功登出');
+    window.location.href = '/login';
+  };
+
   return (
     <Layout style={{ minHeight: '100vh', display: 'flex', flexDirection: 'row' }}>
       {/* Side Menu Component */}
@@ -116,6 +123,14 @@ const MainLayout: React.FC = () => {
             <FileTextOutlined style={{ fontSize: '20px', color: '#fff', marginRight: '16px' }} />
             <UserOutlined style={{ fontSize: '20px', color: '#fff', marginRight: '16px' }} />
             <Button className="glassy-button" onClick={() => setChatVisible(true)}>AI 助手</Button>
+            <Button 
+              type="text"
+              icon={<LogoutOutlined style={{ fontSize: '20px', color: '#fff' }} />}
+              onClick={handleLogout}
+              style={{ marginLeft: '16px' }}
+            >
+              <span style={{ color: '#fff' }}>登出</span>
+            </Button>
           </div>
         </Header>
         
